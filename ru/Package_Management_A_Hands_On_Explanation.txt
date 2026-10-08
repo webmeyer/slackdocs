@@ -1,0 +1,744 @@
+====== Управление пакетами: практическое объяснение ======
+
+===== Анатомия пакета Slackware =====
+
+Пакет Slackware представляет собой простой сжатый архив TGZ или TXZ, содержащий:
+
+  * древовидную структуру файлов и каталогов ;
+  * сценарии постустановки ;
+  * описание пакета.
+
+Имя каждого пакета содержит ряд сведений:
+
+  * имя программы ;
+  * версию программы ;
+  * архитектуру пакета ;
+  * номер сборки. 
+
+Вот несколько примеров:
+
+  * ''emacs-24.2-i486-1''
+  * ''mozilla-firefox-15.0.1-i486-1''
+  * ''vim-7.3.645-x86_64-1''
+
+===== Управление пакетами Slackware с помощью традиционных инструментов =====
+
+Начиная с первых выпусков, Slackware предоставляет набор простых инструментов — ''pkgtools'', позволяющих пользователю устанавливать, обновлять и удалять пакеты программного обеспечения, а также собирать их:
+
+  * ''installpkg''
+  * ''removepkg''
+  * ''upgradepkg''
+  * ''explodepkg''
+  * ''makepkg''
+
+==== Установка пакетов программного обеспечения ====
+
+Установим редактор Emacs с DVD-диска Slackware ((если он ещё не установлен)):
+
+<code>
+# mount /dev/cdrom /mnt/cdrom
+# cd /mnt/cdrom/slackware/e
+# installpkg emacs-24.2-i486-1.txz
+Verifying package emacs-24.2-i486-1.txz.
+Installing package emacs-24.2-i486-1.txz [ADD]:
+PACKAGE DESCRIPTION:
+# emacs (GNU Emacs)
+#
+# Emacs is the extensible, customizable, self-documenting real-time
+# display editor. If this seems to be a bit of a mouthful, an
+# easier explanation is that Emacs is a text editor and more. At
+# its core is an interpreter for Emacs Lisp, a dialect of the Lisp
+# programming language with extensions to support text editing.
+# This version supports X.
+#
+# http://www.gnu.org/software/emacs/
+#
+Executing install script for emacs-24.2-i486-1.txz.
+Package emacs-24.2-i486-1.txz installed.
+</code>
+
+<note tip>Если вы используете набор компакт-дисков, Emacs находится на первом компакт-диске.</note>
+
+==== Проверка установки пакета ====
+
+Процесс установки пакета создал новую запись в ''/var/log/packages'':
+
+<code>
+# ls /var/log/packages/em*
+/var/log/packages/emacs-24.2-i486-1
+</code>
+
+Проверка установки пакета сводится к проверке существования соответствующей записи в ''/var/log/packages''. Пример:
+
+<code>
+# ls /var/log/packages/*firefox*
+/var/log/packages/mozilla-firefox-15.0.1-i486-1
+</code>
+
+Firefox установлен в системе в версии 15.0.1. Ещё один пример:
+
+<code>
+# ls /var/log/packages/kdebase*
+ls: cannot access /var/log/packages/kdebase*: No such file or directory
+</code>
+
+В системе не установлен пакет ''kdebase-*''.
+
+==== Удаление пакета ====
+
+Для удаления установленного пакета используйте ''removepkg''. В качестве аргумента команда может принимать простое базовое имя пакета. Пример:
+
+<code>
+# removepkg emacs
+</code>
+
+Также можно указать в качестве аргумента полное имя. В этом случае лучше выполнить команду из каталога ''/var/log/packages'' и использовать автодополнение клавишей <kbd>Tab</kbd>
+
+<code>
+# cd /var/log/packages
+# removepkg emacs-24.2-i486-1
+</code>
+
+==== Обновление пакета ====
+
+Slackware предоставляет обновления безопасности для своих последних выпусков. Посетите официальный сайт, чтобы узнать больше о последних обновлениях:
+
+<code>
+# links http://www.slackware.com
+</code>
+
+  - Перейдите по ссылке ''ChangeLogs''
+  - Откройте ''Slackware-stable ChangeLog''.
+  - Прочитайте файл ''ChangeLog.txt'', соответствующий архитектуре вашей системы.
+
+Вы также можете вручную загружать обновления с помощью браузера Links. Перед запуском Links создайте каталог ''/root/updates'' ((Это, конечно, лишь пример. Вы можете использовать любое удобное место в своей системе.)) для хранения загруженных обновлений:
+
+<code>
+# cd
+# mkdir updates
+# cd updates/
+# links mirrors.slackware.com
+</code>
+
+  - Перейдите по ссылке ''Slackware File Tree''*
+  - Откройте каталог, соответствующий вашему выпуску и архитектуре.
+  - Перейдите в каталог ''patches/packages''.
+  - Загрузите все доступные обновления*
+  
+Выйдите из Links и установите обновления следующим образом :
+
+<code>
+# upgradepkg bind-9.9.1_P4-i486-1_slack14.0.txz
+
++==============================================================================
+| Upgrading bind-9.9.1_P3-i486-1 package using ./bind-9.9.1_P4-i486-1_slack14.0.txz
++==============================================================================
+Pre-installing package bind-9.9.1_P4-i486-1_slack14.0...
+Removing package /var/log/packages/bind-9.9.1_P3-i486-1-upgraded-2012-11-21,12:14:32...
+  --> Deleting /usr/doc/bind-9.9.1-P3/CHANGES
+  --> Deleting /usr/doc/bind-9.9.1-P3/COPYRIGHT
+  --> Deleting /usr/doc/bind-9.9.1-P3/FAQ
+  ...
+Verifying package bind-9.9.1_P4-i486-1_slack14.0.txz.
+Installing package bind-9.9.1_P4-i486-1_slack14.0.txz:
+PACKAGE DESCRIPTION:
+bind (DNS server and utilities)
+#
+# The named daemon and support utilities such as dig, host, and
+# nslookup.  Sample configuration files for running a simple caching
+# nameserver are included.  Documentation for advanced name server
+# setup can be found in /usr/doc/bind-9.x.x/.
+#
+Executing install script for bind-9.9.1_P4-i486-1_slack14.0.txz.
+Package bind-9.9.1_P4-i486-1_slack14.0.txz installed.
+  
+Package bind-9.9.1_P3-i486-1 upgraded with new package
+./bind-9.9.1_P4-i486-1_slack14.0.txz.
+</code>
+
+Ещё один пример :
+
+<code>
+# upgradepkg iptables-1.4.14-i486-2_slack14.0.txz
+</code>
+
+==== Дополнительные сведения о содержимом пакета ====
+
+Каждому пакету соответствует запись в ''/var/log/packages''. Это обычные текстовые файлы, содержащие сведения о содержимом соответствующих пакетов. Пример:
+
+<code>
+# less /var/log/packages/wget-1.14-i486-1
+PACKAGE NAME:     wget-1.14-i486-1
+COMPRESSED PACKAGE SIZE:     478.5K
+UNCOMPRESSED PACKAGE SIZE:     2.0M
+PACKAGE LOCATION: /var/log/mount/slackware/n/wget-1.14-i486-1.txz
+PACKAGE DESCRIPTION:
+wget: wget (a non-interactive network retriever)
+wget:
+wget: GNU Wget is a free network utility to retrieve files from the 
+wget: World Wide Web using HTTP and FTP, the two most widely used Internet
+wget: protocols.  It works non-interactively, thus enabling work in the
+wget: background after having logged off.
+wget:
+wget: The author of Wget is Hrvoje Niksic <hniksic@srce.hr>.
+wget:
+wget:
+wget:
+FILE LIST:
+./
+install/
+install/slack-desc
+install/doinst.sh
+usr/
+usr/bin/
+usr/bin/wget
+usr/man/
+usr/man/man1/
+usr/man/man1/wget.1.gz
+usr/info/
+usr/info/wget.info.gz
+...
+</code>
+
+===== Управление пакетами Slackware с помощью slackpkg =====
+
+Утилита ''slackpkg'' официально включена в Slackware начиная с выпуска 13.0. Она позволяет пользователю значительно удобнее управлять пакетами Slackware
+
+Несколько замечаний:
+
+  - ''slackpkg'' работает только с официальными пакетами Slackware.
+  - Пакетами сторонних разработчиков можно управлять с помощью плагина ''slackpkg+'' от Маттео Россини.
+  - Зависимостями по-прежнему необходимо управлять вручную
+
+==== Первоначальная настройка ====
+
+Отредактируйте ''/etc/slackpkg/mirrors'' и раскомментируйте //только один// источник пакетов, например:
+
+<code>
+# /etc/slackpkg/mirrors
+...
+# FRANCE (FR)
+ftp://mirror.ovh.net/mirrors/ftp.slackware.com/slackware-14.0/
+# http://mirror.ovh.net/mirrors/ftp.slackware.com/slackware-14.0/
+</code>
+
+<note warning>Если вы используете стабильный выпуск Slackware, не перепутайте раздел и не раскомментируйте зеркало из ''Slackware-current''. В этом случае вы обновитесь до разрабатываемой версии Slackware!</note>
+
+Если вы предпочитаете управлять пакетами локально, без получения обновлений, вы всё ещё можете использовать установочный DVD Slackware в качестве источника пакетов. В этом случае необходимо настроить стандартную точку монтирования:
+
+<code>
+# /etc/slackpkg/mirrors 
+...
+#----------------------------------------------------------------
+# Local CD/DVD drive
+#----------------------------------------------------------------
+cdrom://mnt/cdrom/
+...
+</code>
+
+Не забудьте смонтировать DVD перед вызовом ''slackpkg'':
+
+<code>
+# mount /dev/cdrom /mnt/cdrom
+</code>
+
+Обновите сведения о доступных пакетах:
+
+<code>
+# slackpkg update
+</code>
+
+<note>Обратите внимание, что приведённая выше команда не устанавливает обновления пакетов. Она лишь обновляет внутренний список пакетов, которые вы //можете// установить.</note>
+
+<note tip>Перед поиском, установкой или обновлением пакета всегда рекомендуется выполнять ''slackpkg update'', чтобы сведения системы о доступных пакетах были актуальными.</note>
+
+==== Установка пакетов ====
+
+Пример с одним пакетом:
+
+<code>
+# slackpkg install mplayerplug-in
+</code>
+
+Подтвердите установку на следующем экране — пакет будет автоматически загружен и установлен.
+
+Также можно указать несколько пакетов в качестве аргументов:
+
+<code>
+# slackpkg install mplayerplug-in bittorrent
+</code>
+
+Можно также управлять целыми группами пакетов:
+
+<code>
+# slackpkg install kde
+</code>
+
+Ещё один пример группы пакетов:
+
+<code>
+# slackpkg install xfce
+</code>
+
+==== Удаление пакетов ====
+
+Пример с одним пакетом:
+
+<code>
+# slackpkg remove mplayerplug-in
+</code>
+
+Как и выше, подтвердите удаление пакета на следующем экране.
+
+Удаление нескольких пакетов одновременно:
+
+<code>
+# slackpkg remove mplayerplug-in bittorrent
+</code>
+
+Аналогично можно удалить целую группу пакетов:
+
+<code>
+# slackpkg remove kde
+</code>
+
+Или:
+
+<code>
+# slackpkg remove xfce
+</code>
+
+==== Обновление пакетов ====
+
+Когда доступно обновление пакета, его можно установить следующей командой:
+
+<code>
+# slackpkg upgrade iptables
+</code>
+
+Обновление нескольких пакетов одновременно:
+
+<code>
+# slackpkg upgrade mozilla-firefox mozilla-thunderbird
+</code>
+
+Обычно рекомендуется поддерживать всю систему в актуальном состоянии:
+
+<code>
+# slackpkg upgrade-all
+</code>
+
+==== Поиск определённых пакетов или файлов ====
+
+Поиск определённого пакета:
+
+<code>
+# slackpkg search k3b    
+Looking for k3b in package list. Please wait... DONE
+The list below shows all packages with name matching "k3b".
+[uninstalled] - k3b-2.0.2_20120226.git-i486-1
+</code>
+
+Если пакет уже установлен, результат будет выглядеть так:
+
+<code>
+# slackpkg search Terminal
+Looking for Terminal in package list. Please wait... DONE
+The list below shows all packages with name matching "Terminal".
+[ installed ] - Terminal-0.4.8-i486-1
+</code>
+
+Также можно искать отдельные файлы. В результате поиска будут показаны один или несколько пакетов, содержащих нужный файл:
+
+<code>
+# slackpkg file-search libncurses.so
+Looking for libncurses.so in package list. Please wait... DONE
+The list below shows the packages that contains "libncurses\.so" file.
+[ installed ] - aaa_elflibs-14.0-i486-4
+[ installed ] - ncurses-5.9-i486-1
+</code>
+
+Если вы хотите узнать больше о содержимом пакета:
+
+<code>
+# slackpkg info mesa
+
+PACKAGE NAME:  mesa-8.0.4-i486-1.txz
+PACKAGE LOCATION:  ./slackware/x
+PACKAGE SIZE (compressed):  19208 K
+PACKAGE SIZE (uncompressed):  83930 K
+PACKAGE DESCRIPTION:
+mesa: mesa (a 3-D graphics library)
+mesa:
+mesa: Mesa is a 3-D graphics library with an API very similar to that of
+mesa: another well-known 3-D graphics library.  :-)  The Mesa libraries are
+mesa: used by X to provide both software and hardware accelerated graphics.
+mesa:
+mesa: Mesa was written by Brian Paul.
+mesa:
+</code>
+
+==== Очистка системы ====
+
+Удаление всех пакетов сторонних разработчиков:
+
+<code>
+# slackpkg clean-system
+</code>
+
+Если вы решите сохранить некоторые пакеты, просто снимите их выделение на следующем экране.
+
+Вы также можете использовать ''slackpkg'' для восстановления повреждённого пакета. Допустим, я случайно удалил файл ''/usr/bin/glxgears''. Сначала нужно найти пакет, предоставляющий этот файл:
+
+<code>
+# slackpkg file-search glxgears
+Looking for glxgears in package list. Please wait... DONE
+The list below shows the packages that contains "glxgears" file.
+[ installed ] - mesa-8.0.4-i486-1
+</code>
+
+Получив эту информацию, можно просто переустановить пакет:
+
+<code>
+# slackpkg reinstall mesa
+</code>
+
+===== Пересборка официальных пакетов =====
+
+Slackware предоставляет исходный код всей системы в каталоге ''source''. Для каждого двоичного системного пакета существует соответствующий каталог с исходным кодом. Эти каталоги обычно содержат:
+
+  * исходный код приложения или библиотеки;
+  * рецепт сборки в виде файла ''*.SlackBuild'';
+  * описание пакета в файле ''slack-desc'';
+  * при необходимости сценарий постустановки с именем ''doinst.sh'';
+  * различные другие файлы, например исправления, пользовательские пункты меню и т. д..
+
+==== Сборка пакета из исходного кода ====
+
+В приведённом ниже примере мы соберём приложение ''Terminal'' из исходного кода, предоставленного Slackware. Если пакет уже установлен, его можно удалить.
+
+<note tip>Пакет ''Terminal'' — это терминал Xfce. В Slackware 14.1 пакет был переименован в ''xfce4-terminal''.</note>
+
+<code>
+# removepkg Terminal
+</code>
+
+Выберите подходящее место в системе для хранения исходного кода и сценариев, например:
+
+<code>
+# cd
+# mkdir -pv source/Terminal
+mkdir: created directory 'source'
+mkdir: created directory 'source/Terminal'
+# cd source/Terminal/
+# links mirrors.slackware.com
+</code>
+
+Загрузите содержимое каталога ''source/xfce/Terminal'' с зеркала Slackware. В результате получим:
+
+<code>
+# ls -lh 
+total 1,4M
+-rw-r--r-- 1 root root  821 nov.  24 15:09 slack-desc
+-rw-r--r-- 1 root root 1,4M nov.  24 15:11 Terminal-0.4.8.tar.xz
+-rw-r--r-- 1 root root 3,6K nov.  24 15:10 Terminal.SlackBuild
+</code>
+
+Сделайте файл ''Terminal.SlackBuild'' исполняемым и запустите процесс сборки:
+
+<code>
+# chmod +x Terminal.SlackBuild
+# ./Terminal.SlackBuild
+</code>
+
+Сценарий запускает компиляцию пакета. Если всё проходит ожидаемым образом, операция завершается следующим сообщением:
+
+<code>
+Slackware package /tmp/Terminal-0.4.8-i486-1.txz created.
+</code>
+
+Теперь можно установить получившийся пакет:
+
+<code>
+# installpkg /tmp/Terminal-0.4.8-i486-1.txz
+</code>
+
+==== Изменение официального пакета Slackware ====
+
+Основная причина пересборки официального пакета — необходимость изменить его, например добавить или отключить определённые функции. В следующем примере мы пересоберём пакет ''audacious-plugins'', чтобы изменить аудиопроигрыватель Audacious. Исходное приложение предоставляет два разных графических интерфейса, и мы отключим один из них.
+
+Начнём с удаления пакета, если он установлен:
+
+<code>
+# removepkg audacious-plugins
+</code>
+
+Теперь создадим подходящий каталог для хранения исходного кода:
+
+<code>
+# cd /root/source
+# mkdir audacious-plugins
+# cd audacious-plugins
+# links mirrors.slackware.com 
+</code>
+
+Загрузите содержимое каталога ''/source/xap/audacious-plugins'' и сделайте сценарий ''audacious-plugins.SlackBuild'' исполняемым:
+
+<code>
+# chmod +x audacious-plugins.SlackBuild
+# ls -lh
+total 1,4M
+-rw-r--r-- 1 root root 1,4M nov.  24 15:28 audacious-plugins-3.3.1.tar.xz
+-rwxr-xr-x 1 root root 4,0K nov.  24 15:28 audacious-plugins.SlackBuild*
+-rw-r--r-- 1 root root  892 nov.  24 15:28 slack-desc
+</code>
+
+Теперь отредактируйте ''audacious-plugins.SlackBuild'' и добавьте один параметр:
+
+<code>
+...
+# Configure:
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --sysconfdir=/etc \
+  --mandir=/usr/man \
+  --enable-amidiplug \
+  --disable-gtkui \          -> add this option
+  --program-prefix= \
+  --program-suffix= \
+  ${ARCHOPTS} \
+  --build=$ARCH-slackware-linux
+...
+</code>
+
+Соберите и установите пакет:
+
+<code>
+# ./audacious-plugins.SlackBuild
+...
+Slackware package /tmp/audacious-plugins-3.3.1-i486-1.txz created.
+# installpkg /tmp/audacious-plugins-3.3.1-i486-1.txz
+</code>
+
+==== Выбор параметров конфигурации для компиляции ====
+
+Сценарий настройки исходного кода (точнее, иногда очень длинная строка в SlackBuild, начинающаяся с ''./configure'') часто отображает обзор активированных и/или деактивированных параметров. Чтобы прервать процесс создания пакета и вывести этот обзор, можно временно отредактировать SlackBuild следующим образом:
+
+<code>
+...
+# Configure:
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --sysconfdir=/etc \
+  --mandir=/usr/man \
+  --enable-amidiplug \
+  --program-prefix= \
+  --program-suffix= \
+  ${ARCHOPTS} \
+  --build=$ARCH-slackware-linux
+
+exit 1          -> add this option to interrupt the script
+
+# Build and install:
+make $NUMJOBS || make || exit 1
+make install DESTDIR=$PKG || exit 1
+... 
+</code>
+
+Теперь запустите сценарий и подождите несколько секунд, пока появится обзор конфигурации:
+
+<code>
+# ./audacious-plugins.SlackBuild
+...
+Configuration:
+  
+...
+
+Interfaces
+----------
+GTK (gtkui):                            yes
+Winamp Classic (skins):                 yes
+</code>
+
+Используйте параметр ''./configure --help'', чтобы вывести список всех возможных параметров:
+
+<code>
+# tar xvf audacious-plugins-3.3.1.tar.xz
+# cd audacious-plugins-3.3.1
+# ./configure --help | less
+...
+--disable-speedpitch    disable Speed and Pitch effect plugin
+--disable-gtkui         disable GTK interface (gtkui)
+--disable-skins         disable Winamp Classic interface (skins)
+--disable-lyricwiki     disable LyricWiki plugin (default=enabled)
+...
+</code>
+
+<note tip>Сценарий SlackBuild уже автоматически распаковывает архив с исходным кодом в каталог ''/tmp''. Поэтому можно просто выполнить ''./configure --help | less'' из этого каталога, не распаковывая архив с исходным кодом вручную в текущий каталог.</note>
+
+<note>В данном случае активация некоторых функций, например поддержки проприетарных аудиоформатов, будет зависеть от наличия соответствующих библиотек в вашей системе.</note>
+
+После выбора всех параметров конфигурации удалите временную команду ''exit 1'' из сценария и запустите процесс сборки и установки:
+
+<code>
+# ./audacious-plugins.SlackBuild
+...
+Slackware package /tmp/audacious-plugins-3.3.1-i486-1.txz created.
+# installpkg /tmp/audacious-plugins-3.3.1-i486-1.txz
+</code>
+
+===== Сборка пакетов сторонних разработчиков =====
+
+Slackware предлагает лишь ограниченный выбор пакетов по сравнению с такими гигантскими дистрибутивами, как Ubuntu или Debian. Рано или поздно вам захочется установить пакет, который не предоставляется дистрибутивом. Что же в таком случае делать?
+
+[[http://slackbuilds.org|Сайт [blocked] SlackBuilds.org]] — вероятно, лучшее место для поиска программного обеспечения сторонних разработчиков. Пакетов вы там не найдёте, поскольку SlackBuilds.org //не является// репозиторием двоичных пакетов и никогда им не станет. Это чрезвычайно аккуратно организованная коллекция сценариев сборки, каждый из которых прошёл проверку и тестирование. С помощью этих сценариев можно собрать практически любое стороннее программное обеспечение.
+  
+==== Сборка пакетов с помощью сценариев SlackBuilds.org ====
+
+В следующем примере мы соберём и установим пакет ''cowsay'' с помощью сценария сборки, предоставленного SlackBuilds.org.
+
+Для начала перейдите с помощью ''cd'' в каталог сборки, который мы определили ранее:
+
+<code>
+# cd /root/source
+</code>
+
+Загрузите в этот каталог следующие компоненты :
+
+  - сжатый архив со сценариями для сборки пакета;
+  - сжатый архив с исходным кодом.
+
+В нашем случае:
+
+<code>
+# links http://slackbuilds.org
+</code>
+
+  - В поле Search в верхней левой части экрана введите ''cowsay'', переместите курсор на ''Search'' (клавиша CursorDown) и подтвердите, нажав <key>Enter</key>.
+  - Перейдите по ссылке ''cowsay'' на странице результатов поиска.
+  - Оказавшись на странице ''cowsay'', загрузите SlackBuild (''cowsay.tar.gz'') и исходный код (''cowsay-3.03.tar.gz''), затем выйдите из Links.
+
+<note tip>В качестве альтернативы можно использовать ''lynx'' вместо ''links''.</note>
+
+Вот два загруженных нами архива:
+
+<code>
+# ls -l cowsay*
+-rw-r--r-- 1 root root 15136 nov.  25 08:14 cowsay-3.03.tar.gz
+-rw-r--r-- 1 root root  2855 nov.  25 08:14 cowsay.tar.gz
+</code>
+
+Распакуйте архив со сценариями:
+
+<code>
+# tar xvzf cowsay.tar.gz 
+cowsay/
+cowsay/cowsay.SlackBuild.patch
+cowsay/README
+cowsay/slack-desc
+cowsay/cowsay.SlackBuild
+cowsay/cowsay.info
+</code>
+
+При необходимости можно немного навести порядок и удалить архив:
+
+<code>
+# rm -f cowsay.tar.gz
+</code>
+
+Теперь переместите архив с исходным кодом во вновь созданный каталог ''cowsay/'':
+
+<code>
+# mv -v cowsay-3.03.tar.gz cowsay/
+« cowsay-3.03.tar.gz » -> « cowsay/cowsay-3.03.tar.gz »
+</code>
+
+Вот что у нас получилось:
+
+<code>
+# tree cowsay
+cowsay
+|-- cowsay-3.03.tar.gz
+|-- cowsay.info
+|-- cowsay.SlackBuild
+|-- cowsay.SlackBuild.patch
+|-- README
+`-- slack-desc
+</code>
+
+Теперь перейдите в этот каталог с помощью ''cd''. Проверьте, является ли SlackBuild-файл ''cowsay'' исполняемым, а затем запустите его, чтобы начать создание пакета:
+
+<code>
+# cd cowsay/
+# ls -l cowsay.SlackBuild
+-rwxr-xr-x 1 kikinovak users 1475 mai   27  2010 cowsay.SlackBuild*
+# ./cowsay.SlackBuild
+...
+</code>
+
+Если всё пройдёт успешно, процесс создаст пакет в каталоге ''/tmp'', или, точнее, в каталоге ''$OUTPUT'', определённом сценарием:
+
+<code>
+...
+Slackware package /tmp/cowsay-3.03-noarch-1_SBo.tgz created.
+</code>
+
+Остаётся только установить пакет с помощью ''installpkg'':
+
+<code>
+# installpkg /tmp/cowsay-3.03-noarch-1_SBo.tgz 
+# cowsay Hi there ! 
+ -------------
+< Hi there ! >
+ ------------- 
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+</code>
+
+==== Управление зависимостями пакетов ====
+
+Некоторые пакеты требуют наличия других пакетов, чтобы корректно собираться (//зависимости сборки//) и/или чтобы запускаться (//зависимости среды выполнения//). В некоторых случаях необходимый пакет сам может зависеть от одного или нескольких других пакетов — и так далее.
+
+В качестве примера рассмотрим страницу ''libgnomeprint'' на SlackBuilds.org. После описания пакета приведено следующее замечание:
+
+<code>
+This requires: libgnomecups.
+</code>
+
+Кроме того, каждый архив со сценариями содержит файл ''*.info'', в котором явно указаны все необходимые зависимости пакета. Если посмотреть файл ''libgnomeprint.info'', мы найдём поле ''REQUIRES'':
+
+<code>
+PRGNAM="libgnomeprint"
+VERSION="2.18.8"
+HOMEPAGE="http://www.gnome.org"
+...
+REQUIRES="libgnomecups" ----> package dependency
+...
+</code>
+
+<note>Поле ''REQUIRES'' было введено в Slackware 14.0</note>
+
+Это просто означает, что перед сборкой пакета ''libgnomeprint'' необходимо собрать и установить пакет ''libgnomecups''.
+
+Помимо строго обязательных зависимостей, пакет также может иметь необязательные зависимости, обеспечивающие дополнительную функциональность. Например, текстовый редактор Leafpad можно собрать с поддержкой необязательных зависимостей ''libgnomeprint'' и ''libgnomeprintui''.
+
+
+**В РАБОТЕ**
+
+====== Источники ======
+
+  * Изначально написано [[wiki:user:kikinovak | Niki Kovacs]]
+  * Переведено [[wiki:user:webmeyer | Dmitri Meyer]]
+
+<!-- Please do not modify anything below, except adding new tags.-->
+<!-- You must also remove the tag-word "template" below. Otherwise your page will not show up in the Table of Contents -->
+{{tag>slackware package management author_kikinovak translator_webmeyer}}
