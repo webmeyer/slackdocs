@@ -1,0 +1,22 @@
+<!-- Add your text below. Start with a Headline (see button bar above). -->
+====== Неофициальные репозитории пакетов ======
+  * 
+  * **[[http://www.slackbuilds.org|slackbuilds.org]]** — этот сайт содержит присланные сообществом скрипты сборки, позволяющие легко создавать пакеты Slackware из исходного кода различных приложений.
+  * **[[http://slackware.it/|slackware.it]]** — это репозиторий уже собранных (бинарных) пакетов, скомпилированных для различных языковых локалей.
+  * **[[http://www.slackware.com/~alien/slackbuilds/|репозиторий alienBOB]]** — этот сайт содержит как готовые пакеты, так и связанные с ними скрипты сборки. Вы можете использовать его для скачивания пакетов напрямую или для получения стабильных скриптов с последующей сборкой под свои нужды.
+
+<note>
+Если вы хотите добавить другой репозиторий в этот список, пожалуйста, предложите его в списке рассылки slackdoc.
+</note>
+
+<!-- If you copy information from another source, then specify that source
+
+<!-- Authors are allowed to give credit to themselves! -->
+  * Written by [[wiki:user:mfillpot | mfillpot]]
+  * Translated by [[wiki:user:webmeyer| webmeyer]]
+<!-- * Contrbutions by [[wiki:user:mfillpot | mfillpot]] -->
+
+<!-- Please do not modify anything below, except adding new tags.-->
+<!-- You must also remove the tag-word "template" below. Otherwise your page
+will not show up in the Table of Contents -->
+{{tag>slackware package_management package_repos author_mfillpot translator_webmeyer}}

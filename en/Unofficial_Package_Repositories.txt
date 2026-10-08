@@ -1,0 +1,23 @@
+<!-- Add your text below. Start with a Headline (see button bar above). -->
+====== Unofficial Package Repositories ======
+
+  * **[[http://www.slackbuilds.org|slackbuilds.org]]** - This site holds community submitted builds scripts to easily build Slackware packages from the source code of various applications.
+  * **[[http://slackware.it/|slackware.it]]** - This is a repository of pre-built packages compiled in various languages.
+  * **[[http://connie.slackware.com/~alien/slackbuilds|alienBOB's repo]]** - This site contains pre-built packages and the associated build scripts used to build them, so you can use it to download packages or to get stable build scripts and build the packages to fit your needs.
+
+<note>
+If you would like another repo added to the list please propose it inthe
+slackdoc mailing-list.
+</note>
+
+<!-- If you copy information from another source, then specify that source
+
+<!-- Authors are allowed to give credit to themselves! -->
+  * Written by [[wiki:user:mfillpot | mfillpot]]
+<!-- * Contrbutions by [[wiki:user:mfillpot | mfillpot]] -->
+
+<!-- Please do not modify anything below, except adding new tags.-->
+<!-- You must also remove the tag-word "template" below. Otherwise your page
+will not show up in the Table of Contents -->
+{{tag>slackware package_management package_repos author_mfillpot}}
+
