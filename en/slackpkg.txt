@@ -1,0 +1,190 @@
+<!-- Add your text below. We strongly advise to start with a Headline (see button bar above). -->
+====== slackpkg ======
+
+Slackpkg is an automated tool to manage local packages and to install new package over a network. slackpkg is found within the 'ap' (Application) series of Slackware and will be installed by default.
+
+===== Configuring =====
+
+
+=== Initial Setup ===
+
+Before slackpkg can be used it needs to have a current list of packages and their versions and that can be downloaded automatically by the tool itself once a mirror site is selected. 
+
+To select a mirror, just uncomment a single URL in the file ''/etc/slackpkg/mirrors''.
+
+<note tip>The links are sorted by Slackware release versions so make sure that the selected link is in the same release that you are interested in. It is recommended, though not required, that you use the ''mirrors.slackware.com'' mirror, as that one will automatically redirect you to your geographically closest mirror.</note>
+
+<note important>mirrors.slackware.com does not support the ARM/AArch64 platform</note> 
+
+Then run:
+  darkstar~# slackpkg update gpg
+
+The next step would be to update the package list with:
+  
+  darkstar~# slackpkg update
+  
+If there hasn't been a change to the list, you will be prompted with:
+  
+  No changes in ChangeLog.txt between your last update and now.
+  Do you really want to download all other files (y/N)?
+  
+Otherwise slackpkg will download and install the current package information and will use that list.\\
+
+
+<note tip>If you have installed Slackware -current (the rolling development branch) you will be presented with a message similar to the following:
+<code>
+You have selected a mirror for Slackware -current in /etc/slackpkg/mirrors,
+but Slackware version 15.0+ appears to be installed.
+Slackware -current is the development (i.e. unstable) tree.
+Is this really what you want?
+</code>
+
+This is to be expected and you can proceed. The '+' in the Slackware version number means it's the development cycle //after// 15.0 (in this example) was released.
+
+</note>
+
+==== Blacklisting ====
+
+slackpage will take into consideration any pattern from ''/etc/slackpkg/blacklist''. For example the following patterns will make slackpkg disregard any package that was installed from [[slackware:slackbuild_scripts|SBo]] and from alienBob's repository:
+  
+  [0-9]+_SBo
+  [0-9]+alien
+  
+
+===== Usage =====
+Read this entire page before using slackpkg, especially the part about Full System Upgrades, if you are or plan to run Slackware -current.
+
+Slackpkg uses patterns to search install and remove packages. The pattern will be searched on the list of packages and any package that matches the pattern is shown.
+
+==== Search ====
+
+Searching a package will show you information about the package full name, version and installed status.\\
+
+  darkstar~# slackpkg search mc
+  
+  Looking for mc in package list. Please wait... DONE
+  
+  The list below shows all packages with name matching "mc".
+  
+  [ installed ] - mcelog-1.0pre3-i486-1
+  [uninstalled] - pcmciautils-017-i486-1
+  [ installed ] - mc-4.8.1.3-i486-1
+  [ installed ] - libmcrypt-2.5.8-i486-1
+
+==== file-search ====
+
+To search a specific file and later install or remove the package that contains this file:
+  
+  darkstar~# slackpkg file-search sshd
+  
+  Looking for sshd in package list. Please wait... DONE
+  
+  The list below shows the packages that contains "sshd" file.
+  
+  [ installed ] - openssh-6.0p1-i486-2
+
+==== info ====
+
+To get information about a package ''slackpkg Info packagename'' will print the package's information to the screen.
+
+==== install ====
+
+To install a package use ''slackpkg install pattern''. If a package was found a dialog window will present any packages that matches to the pattern and the user can un/check which packages to install.\\
+To install everything in a branch you can type: ''slackpkg install branch'' for example ''slackpkg install kde'' will install everything under kde (but nothing from kdei).
+==== remove ====
+
+To remove a package use ''slackpkg remove pattern''. If a package was found a dialog window will present any packages that matches to the pattern and the user can un/check which packages to remove.
+
+==== upgrade ====
+
+If an update is available for a certain package, it can be updated with ''slackpkg upgrade packagename''.
+
+==== reinstall ====
+
+This command can be used if a package became broken and needs to be re-installed.
+
+==== blacklist ====
+
+This can be used to add a certain package to the blacklist. Blacklisted packages are being disregarded by slackpkg.
+
+==== generate-template ====
+
+If you need to re-install the entire system or install a new PC that will have similar installed packages, a user can generate a template to be installed later.
+
+==== install-template ====
+
+This command is used to have all the packages in a template be installed on this PC.
+
+==== install-new ====
+
+Running slackpkg with this argument generates a list of packages that were introduces to the Slackware recently, for example new dependencies to a package. It is advisable to run this command before updating the system if you synchronize to slackware-current.
+
+==== upgrade-all ====
+
+Running slackpkg with this argument will generate a list of all packages that can be upgraded with a new version. The user can un/check which packages to upgrade from a dialog list.
+
+==== clean-system ====
+
+Running slackpkg with this argument will generate a list of all packages that are obsolete and can be safely removed from the system. Note that non-official packages will be listed here unless blacklisted.
+
+==== new-config ====
+
+During installation a new configuration file might be installed and overwrite your configurations. To prevent that the file will receive a ".new" prefix and after installation slackpkg will inform the user about the existence of these files. Running slackpkg with this argument will search for the existence of these files and will ask the user for instructions.
+
+==== check-updates ====
+
+Running slackpkg with this argument will produce a clean printout if there are any available updates.
+
+===== Regular updates =====
+
+After the initial configuration, the easiest way to keep your system up to date is to enter these commands:
+
+Cause slackpkg to update its knowledge of the configured Slackware release:
+
+<code>
+slackpkg update
+</code>
+
+Check the Change Log for the configured release:
+<code>
+slackpkg show-changelog
+</code>
+
+Generally, unless you know what you're doing you should install new packages since some of the existing packages may now depend on them.
+
+<code>
+slackpkg install-new</code>
+
+Upgrade to the latest packages:
+<code>
+slackpkg upgrade-all</code>
+
+Clean up:
+<code>
+slackpkg clean-system</code>
+
+<note tip>For Slackware ARM/AArch64, Kernel upgrades are handled automatically - there is no need to re-generate the Initial RAM Disk.
+For x86/64 you may need to run the ''geninitrd'' command.</note>
+
+
+===== Full system upgrade =====
+
+To perform a full system upgrade, please follow these steps (as root user):
+  
+  slackpkg update
+  slackpkg install-new
+  slackpkg upgrade-all
+  slackpkg clean-system
+  
+It is always recommended to read the latest ChangeLogs and ''UPGRADING.TXT'' (found on the HTTP/FTP mirrors for each version) before doing any major system upgrades. \\ There's [[howtos:slackware_admin:systemupgrade|a separate article]] dedicated to doing a full system upgrade which you should definitely read first.
+
+<note>Pay attention to changed configuration files. Update them either by merging your customizations from the older configuration files (Slackpkg can optionally step through every changed configuration file and allow you to resolve the changes) or manually editing the new files after allowing Slackpkg to overwrite the old configuration files. You decide which way works best for you.</note> 
+===== External Links =====
+
+  * SlackPKG home page: [[https://slackpkg.org/]]
+
+<!-- Please do not add anything below, except additional tags.-->
+<!-- However we request that you remove the tag-word "template" below. Otherwise your page will not show up in the Table of Contents -->
+
+<!-- Do not remove this line and the text below. Thanks! slackdocs@-->
+{{tag>slackware slackpkg}}
