@@ -1,0 +1,47 @@
+====== Desktop environment ======
+
+A desktop environment is a graphical layer between the user and the computer. In the UNIX context, a desktop manager is a graphical environment that runs inside an X session. It enables the user through mouse and keyboard interaction to access the underlying features of the operating systems. A full desktop environment (as opposed to a [[slackware:window manager|window manager]]) usually provides a set of software for the most common needs (file access, web browsing, printing...).
+
+A desktop environment usually consists of many of the following components:
+  * A native window manager to manage window placement and arrangements (some desktop environments may additionally be able to use third party Window Managers).
+  * A session manager (to save and restore user's sessions).
+  * A desktop manager (to manage the user's desktop, i.e. background, icons, multiple workspaces etc.)
+  * A panel with menus for launching applications and additional widgets including notifications and messages.
+  * A file browser. 
+  * A task manager to manage running applications and background tasks.
+  * At least one basic graphical text editor (if not more).
+  * Desktop configuration GUIs, including colours, themes, fonts etc.
+  * Common utilities such as a terminal emulator, internet browser, power manager, bluetooth manager, network manager, clipboard handler and so on.
+  * System administration GUIs for common admin tasks such as printer configuration, removable device auto-mount setup, file associations etc.
+  * Several commonly desktop applications including media player, movie player, document viewer, graphics viewer etc.
+
+In addition, Desktop Environments usually provide integration with features such as display and ACPI power management, useful for notebooks/laptops. Modern Desktop Environments also provide or integrate with a desktop compositing engine which allows for graphical special effects such as 3D flipping of workspaces, window translucency, simple animations and shadows, but this requires 3D hardware acceleration enabled and can consume additional system resources. 
+===== Available environments =====
+Desktop environments available in Slackware can be classed as full or light-weight environments depending on the number of features they include. The more features an environment has, the more complete it is but also the more computer resources it uses. Light-weight environments come with a smaller set of features, usually just a unified look and feel, so you will need independent applications. For example a video player is not included like it is in [[slackware:kde|KDE]], but you can use xmms which is installed by default with Slackware.
+
+Switching between available environments is done by running ''xwmconfig'' from a terminal prior to starting X.
+
+==== Full environments ====
+
+  * [[slackware:kde|KDE]]: the K Desktop Environment.
+  * [[slackware:xfce|XFCE]]: a full environment that is much more lightweight on the computer resources, based on the GTK toolkit.
+
+==== Light-weight environments ====
+
+  * FluxBox
+  * BlackBox
+  * WindowMaker
+  * fvwm2
+  * twm
+
+===== Other environments =====
+  * [[http://gnome.org/|GNOME]]: since version [[ftp://ftp.slackware.com/pub/slackware/slackware-10.2/ChangeLog.txt|10.2]], Gnome is no longer part of Slackware. Several community driven projects provide packages for those willing to use Gnome in Slackware:
+    * [[http://gnomeslackbuild.org/|GSB: GNOME SlackBuild]]
+    * [[http://www.droplinegnome.net/|dropline GNOME desktop]]
+  * [[http://mate-desktop.org/|MATE]]: a full lightweight environment, based on the GNOME 2 libraries. The [[http://mateslackbuilds.github.com|MATE SlackBuilds]] project has packages available from [[http://www.slackware.org.uk/msb/|http://www.slackware.org.uk/msb/]].
+  * [[http://lxde.org/|LXDE]]. The [[http://lxde.org/|Lightweight X11 Desktop Environment]] is a good alternative for low-end hardware where KDE is too sluggish. See this [[http://slackware.ponce.cc/blog/2010/08/23/easily-build-yourself-lxde-with-sbopkg/|blog post by ponce]] for instructions on compiling and installing LXDE on Slackware.
+
+=====Sources=====
+
+  * Originally written by [[wiki:user:kookiemonster|kookiemonster]] for the SlackDocs Wiki Project
+  * Additional inputs by [[wiki:user:harishankar|harishankar]] and [[wiki:user:cmyster|cmyster]]
