@@ -1,0 +1,32 @@
+<!-- Add your text below. We strongly advise to start with a Headline (see button bar above). -->
+
+====== Window manager ======
+
+For those who need and/or want a much lighter way of handling the graphical user interface than what a [[slackware:desktop_environment|desktop environment]] can provide, a window manager might be the solution. A window manager basically handles the drawing and the placement of the windows 
+
+As such, a window manager will not handle tasks like a browsing files, changing the wallpaper, managing tasks... All of the the preceding will have to be added by the user to customize his desktop experience. 
+
+A window manager might be used inside a desktop environment, therefore replacing the default manager. For example, Openbox can be used inside KDE instead of Kwin.
+
+===== Available window managers =====
+
+  * [[howtos:window_managers:fluxbox|Fluxbox]]
+  * [[slackware:window_managers:blackbox|Blackbox]]
+  * [[slackware:window_managers:windowmaker|WindowMaker]]
+  * [[slackware:window_managers:fvwm2|Fvwm2]]
+  * [[slackware:window_managers:twm|Tab Window Manager]]
+
+===== Other window managers =====
+
+  * [[slackware:window_managers:openbox|Openbox]] 
+  * [[howtos:window_managers:i3wm|i3 window manager]]
+  * [[howtos:window_managers:xmonad_tiling_window_manager|Xmonad window manager]]
+  * [[howtos:window_managers:e17|Enlightenment DR17 (E17)]]
+
+
+
+<!-- Please do not add anything below, except additional tags.-->
+<!-- However we request that you remove the tag-word "template" below. Otherwise your page will not show up in the Table of Contents -->
+
+<!-- Do not remove this line and the text below. Thanks! slackdocs@-->
+{{tag>slackware slackware_1337}}

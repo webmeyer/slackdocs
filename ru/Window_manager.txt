@@ -1,0 +1,33 @@
+====== Оконный менеджер ======
+Для тех, кому нужен или хочется гораздо более легкий способ работы с графическим интерфейсом пользователя, чем тот, который может предоставить [[slackware:desktop_environment|рабочее окружение]], оконный менеджер (window manager) может стать отличным решением. Оконный менеджер в основном занимается только отрисовкой и размещением окон.\\
+
+Таким образом, оконный менеджер не будет выполнять такие задачи, как просмотр файлов, смена обоев, управление задачами... Всё вышеперечисленное пользователю придется добавлять самостоятельно, чтобы настроить рабочее пространство под свои нужды.\\
+
+Оконный менеджер может использоваться внутри рабочего окружения, заменяя собой менеджер по умолчанию. Например, Openbox можно использовать внутри KDE вместо Kwin.\\
+
+===== Доступные оконные менеджеры =====
+
+  * [[howtos:window_managers:fluxbox|Fluxbox]]
+  * [[slackware:window_managers:blackbox|Blackbox]]
+  * [[slackware:window_managers:windowmaker|WindowMaker]]
+  * [[slackware:window_managers:fvwm2|Fvwm2]]
+  * [[slackware:window_managers:twm|Tab Window Manager]]
+
+===== Другие оконные менеджеры =====
+
+  * [[slackware:window_managers:openbox|Openbox]] 
+  * [[howtos:window_managers:i3wm|i3 window manager]]
+  * [[howtos:window_managers:xmonad_tiling_window_manager|Xmonad window manager]]
+  * [[howtos:window_managers:e17|Enlightenment DR17 (E17)]]
+
+====== Источники ======
+
+<!-- Authors are allowed to give credit to themselves! -->
+  * Автор оригинальной статьи [[wiki:user:slackware_1337 | slackware_1337]]
+  * Перевод [[wiki:user:webmeyer | webmeyer]] 
+
+<!-- Please do not add anything below, except additional tags.-->
+<!-- However we request that you remove the tag-word "template" below. Otherwise your page will not show up in the Table of Contents -->
+
+<!-- Do not remove this line and the text below. Thanks! slackdocs@-->
+{{tag>slackware slackware_1337 translator_webmeyer}}
