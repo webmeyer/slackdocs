@@ -1,0 +1,51 @@
+<!-- Add your text below. We strongly advise to start with a Headline (see button bar above). -->
+====== Xfce ======
+
+Xfce is a GTK+2 lightweight [[slackware:desktop_environment|desktop environment]]. Quoting the [[http://www.xfce.org|official site]], Xfce "aims to be fast and low on system resources, while still being visually appealing and user friendly". While coming with a little less features than either [[slackware:kde|KDE]] or Gnome, it contains a full range of lightweight applications for most of your needs. Having a smaller memory print and cpu usage makes it a good candidate for low-end workstations or for laptops, improving your battery life.
+
+===== Installation =====
+
+Xfce is part of Slackware installation media. The latest stable release, Slackware 14, comes with the latest version of Xfce, 4.10. During the installation process, please make sure that you select the //Xfce// package group. It gets a new package folder under "''/slackware/xfce''". 
+
+Adding Xfce to an existing installation is straightforward:
+  darkstar~# slackpkg install xfce
+
+<note>To use full features (power management, managing external devices such as USB key, ...) you have to be in the //plugdev// and the //power// groups. See [[slackbook:users#managing_users_and_groups|managing users page]].</note>
+===== Configuration =====
+
+==== Startup ====
+
+If you wish to make it your default starting environment, you can specify so at installation time. The choice can be made at the "SELECT DEFAULT WINDOW MANAGER FOR X" step.\\
+After the system is already installed, you can switch between window managers by running the xwmconfig script as root and selecting Xfce:\\
+
+  darkstar~# xwmconfig
+
+==== Looks ====
+Xfce comes with a bundle of themes that changes the way Xfce looks and feels.\\
+Changing the current theme is as easy as going to Settings -> Appearance and selecting one of the preinstalled themes.\\
+More themes, backgrounds, mouse cursors and other goodies are available at http://xfce-look.org/
+
+==== Keyboard setup ====
+
+If you wish to configure your keyboard setup under Xfce, please visit the [[howtos:window_managers:keyboard_layout_in_xfce|Xfce keyboard layout]] page.
+
+==== Additional Plugins ====
+
+[[http://www.slackbuilds.org|SlackBuilds.org]] contains a wide range of Xfce plugins that aim at extending Xfce's functionality.
+
+
+===== External links =====
+
+  * Xfce 4.10 tour: [[http://www.xfce.org/about/tour]]
+  * Xfce FAQ: [[http://wiki.xfce.org/faq]]
+  * Xfce Looks: [[http://xfce-look.org/]]
+
+===== Sources =====
+
+  * Originally written by [[wiki:user:kookiemonster|KookieMonster]]
+
+<!-- Please do not add anything below, except additional tags.-->
+<!-- However we request that you remove the tag-word "template" below. Otherwise your page will not show up in the Table of Contents -->
+
+<!-- Do not remove this line and the text below. Thanks! slackdocs@-->
+{{tag>slackware}}
