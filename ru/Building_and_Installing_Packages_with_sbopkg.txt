@@ -1,0 +1,196 @@
+====== Сборка и установка пакетов с помощью sbopkg ======
+
+[[https://sbopkg.org/|Sbopkg]] — это консольный инструмент с текстовым интерфейсом (на базе диалоговых окон), предназначенный для синхронизации с репозиторием [[https://slackbuilds.org/|SlackBuilds.org]] («SBo»), который представляет собой коллекцию сторонних сценариев SlackBuild для сборки пакетов Slackware. Программа имеет интерфейс на базе библиотеки curses, который позволяет выбирать и компоновать программы, которые вы хотите скомпилировать из исходного кода в готовые пакеты. Её также можно использовать в неинтерактивном режиме, если вы заранее знаете свою цель — в таком случае она работает по принципу «запустил и забыл».
+
+Следующая информация поможет вам установить sbopkg и запустить его в Slackware.
+
+<note tip>Обратите внимание, что ''sbopkg'' собирает пакеты //Slackware//. Как и в случае с любой другой программой управления пакетами в Slackware, для использования этой программы вам нужно быть root! Выполните <code>su -</code>чтобы получить командную строку root с правильно настроенным окружением.</note>
+
+===== Скачивание sbopkg: =====
+
+Скачайте sbopkg по ссылке: https://www.sbopkg.org/downloads.php \\
+Вы можете получить исходные коды и собрать пакет самостоятельно или же просто взять готовый пакет Slackware. В следующем разделе этой статьи предполагается, что вы скачали уже готовый собранный пакет.
+
+===== Установка sbopkg =====
+
+  - Предполагая, что скачанный вами в текущий каталог файл пакета ''sbopkg'' имеет имя //sbopkg-0.38.0-noarch-1_wsr.tgz//, команда ''installpkg'' для установки sbopkg (или его обновления, если он уже присутствовал в вашей системе) выглядит следующим образом:
+<code>
+$ su -
+# cd /path/to/downloaded/file/
+# upgradepkg --install-new sbopkg-0.38.0-noarch-1_wsr.tgz
+</code>
+
+===== Настройка sbopkg =====
+  - Прочитайте документацию ''sbopkg''! Посетите https://www.sbopkg.org/docs.php , а также не забывайте, что для ''sbopkg'' существует man-страница.
+  - При первом запуске ''sbopkg'' вас спросят, согласны ли вы с тем, чтобы программа создала необходимые конфигурационные файлы:
+<code>
+# sbopkg
+
+The following directories do not exist:
+
+Variable                   Assignment
+--------                   ----------
+REPO_{ROOT,NAME,BRANCH} -> /var/lib/sbopkg/,SBo/,14.2
+LOGFILE directory -------> /var/log/sbopkg
+QUEUEDIR ----------------> /var/lib/sbopkg/queues
+SRCDIR ------------------> /var/cache/sbopkg
+TMP ---------------------> /tmp/SBo
+
+You can have sbopkg create them or, if these values are incorrect, you can
+abort to edit your config files or pass different flags.
+
+(C)reate or (A)bort?:
+</code>
+
+Выберите <key>'C'</key> чтобы создать эти необходимые каталоги. \\
+После этого программа отобразит свой главный экран: \\ 
+{{:howtos:slackware_admin:sbopkg_start.png}}
+  - Ваша первая задача — синхронизироваться с репозиторием SlackBuilds.org, то есть позволить ''sbopkg'' создать локальную копию всех записей SlackBuild с удаленного сервера для той версии Slackware, которую вы используете. Вы можете использовать для этого либо первый пункт меню на главном экране интерфейса curses, либо сделать это из командной строки:<code>
+# sbopkg -r
+Syncing with the remote repository into /var/lib/sbopkg/SBo/14.2.
+receiving incremental file list
+
+<long list of filenames...>
+
+sent 451288 bytes  received 36904793 bytes  371702.30 bytes/sec
+total size is 35271012  speedup is 0.94
+
+Rsync with the SBo repository for Slackware 14.2 complete.
+
+Importing SBo repository for Slackware 14.2 GPG Key...
+Import done.
+
+***SYNC COMPLETE***
+</code>
+  - Теперь вы готовы к выбору пакетов, которые вы хотите, чтобы ''sbopkg'' собрал из исходного кода.
+
+===== Использование файлов очередей (Queuefiles) в sbopkg =====
+
+Программа ''sbopkg'' сама по себе обеспечивает высокий уровень автоматизации: интерактивный интерфейс на базе curses помогает вам справляться с рутиной по скачиванию архивов с исходным кодом, позволяя выбирать сразу несколько программ, а затем компилировать и упаковывать их все за один проход.\\ 
+Но вы можете автоматизировать этот процесс ещё сильнее, используя sqg — генератор очередей для sbopkg (входит в состав основного пакета начиная с версии 0.38.0).
+
+sqg может генерировать файл очереди (queuefile) для каждого или для всех пакетов в репозитории SBo:
+<code>
+sqg -p <filezilla> # this will only generate queue file for filezilla package only
+sqg -a # this will generate queue files for all packages in SBo repository
+</code>
+
+Обратите внимание, что каждый раз, когда объявляется публичное обновление или становится доступен новый репозиторий, рекомендуется запускать команду sqg -a для генерации обновленных файлов очередей, поскольку зависимости могут быть добавлены или удалены.
+
+===== Пример использования sbopkg =====
+
+В качестве примера давайте установим [[gramps-project.org|Gramps]]. В файле очереди для Gramps перечислены следующие зависимости в порядке их установки:
+<code>
+orbit2
+pyorbit
+libbonobo
+gnome-mime-data
+gnome-vfs
+libgnome
+gnome-python
+gramps
+</code>
+
+Загрузите файл очереди "''gramps.sqf''" в curses-интерфейс программы sbopkg, и Gramps будет успешно собран в вашей системе Slackware 14.2 и установлен вместе со всеми своими зависимостями.
+
+В качестве альтернативы вы можете использовать менее интерактивный интерфейс командной строки:
+<code>
+sbopkg -i gramps
+Both a queuefile and a package were found with the name "gramps".
+
+Use (Q)ueuefile, (P)ackage, or (A)bort?: q
+
+###########################################
+       New queue process started on:
+       Fri Aug 19 04:57:12 WIB 2016
+###########################################
+
++++++++++++++++++++++++++++++++++++++++++++
+PRE-CHECK LOG
+Using the SBo repository for Slackware 14.2
+Queue Process:  Download, build, and install
+
+ORBit2:
+  Checking GPG for ORBit2.tar.gz ... OK
+  Processing ORBit2 2.14.19-3
+  Using original .info file
+  Using original SlackBuild file
+  No build options selected.
+
+pyorbit:
+  Checking GPG for pyorbit.tar.gz ... OK
+  Processing pyorbit 2.24.0-1
+  Using original .info file
+  Using original SlackBuild file
+  No build options selected.
+
+libbonobo:
+  Checking GPG for libbonobo.tar.gz ... OK
+  Processing libbonobo 2.32.1-3
+  Using original .info file
+  Using original SlackBuild file
+  No build options selected.
+
+gnome-mime-data:
+  Checking GPG for gnome-mime-data.tar.gz ... OK
+  Processing gnome-mime-data 2.18.0-2
+  Using original .info file
+  Using original SlackBuild file
+  No build options selected.
+
+gnome-vfs:
+  Checking GPG for gnome-vfs.tar.gz ... OK
+  Processing gnome-vfs 2.24.4-3
+  Using original .info file
+  Using original SlackBuild file
+  No build options selected.
+
+libgnome:
+  Checking GPG for libgnome.tar.gz ... OK
+  Processing libgnome 2.32.1-2
+  Using original .info file
+  Using original SlackBuild file
+  No build options selected.
+
+gnome-python:
+  Checking GPG for gnome-python.tar.gz ... OK
+  Processing gnome-python 2.28.1-1
+  Using original .info file
+  Using original SlackBuild file
+  No build options selected.
+
+gramps:
+  Checking GPG for gramps.tar.gz ... OK
+  Processing gramps 3.4.3-1
+  Using original .info file
+  Using original SlackBuild file
+  No build options selected.
+
++++++++++++++++++++++++++++++++++++++++++++
+
+Pre-check complete.
+
+Do you wish to proceed based on the search results above? Packages not
+found will be skipped during the process.
+
+(P)roceed or (Q)uit?: P
+</code> 
+При нажатии <key>P</key> начнётся сборка и установка указанных пакетов.\\
+Остальные пакеты можно установить по такому же принципу.
+
+===== Ссылки по sbopkg =====
+
+  * https://www.sbopkg.org\\ 
+  * https://www.sbopkg.org/docs.php
+  * https://www.sbopkg.org/downloads.php
+  * https://www.sbopkg.org/queues.php
+
+
+====== Источники ======
+  * Originally written by [[wiki:user:ldkraemer|ldkraemer]]
+  * Contributions by [[wiki:user:alienbob|Eric Hameleers]]
+  * Contributions by [[wiki:user:willysr|Willy Sudiarto Raharjo]]
+  * Translated by [[wiki:user:webmeyer|Dmitri Meyer]]
+
+<!-- Please do not modify anything below, except adding new tags.-->
+{{tag>howtos software sbo package_management author_ldkraemer translator_webmeyer}}
