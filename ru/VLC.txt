@@ -1,0 +1,23 @@
+<!-- Add your text below. Start with a Headline (see button bar above). -->
+
+====== VLC ======
+
+VLC — это медиаплеер, который может воспроизводить практически любой медиаформат и работать в качестве сервера потокового вещания. Это проект с открытым исходным кодом, возглавляемый организацией VideoLan.
+
+Для установки VLC доступны следующие [[slackware:slackbuild_scripts|сценарии slackbuild]] от AlienBob:
+  * Версия без кодеков: http://www.slackware.com/~alien/slackbuilds/vlc/
+  * Версия с кодеками: http://slackware.org.uk/people/alien/restricted_slackbuilds/vlc/
+
+====== Источники ======
+<!-- If you copy information from another source, then specify that source -->
+  * Официальный сайт VLC: https://www.videolan.org/
+  * Сборка VLC из исходного кода: https://wiki.videolan.org/Slackware 
+  * Перевод [[wiki:user:webmeyer | webmeyer]]
+<!-- * Original source: [[http://some.website.org/some/page.html]] -->
+<!-- Authors are allowed to give credit to themselves! -->
+<!-- * Originally written by [[wiki:user:xxx | User X]] -->
+<!-- * Contrbutions by [[wiki:user:yyy | User Y]] -->
+
+<!-- Please do not modify anything below, except adding new tags.-->
+<!-- You must also remove the tag-word "template" below. Otherwise your page will not show up in the Table of Contents -->
+{{tag>slackware translator_webmeyer}}

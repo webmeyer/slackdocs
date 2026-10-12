@@ -1,0 +1,23 @@
+<!-- Add your text below. Start with a Headline (see button bar above). -->
+====== VLC ======
+
+VLC is a media player that can play almost any media format and act as a streaming server. It is an open source project led by VideoLan.
+
+The following [[slackware:slackbuild_scripts|slackbuilds]] by AlienBob are available to install VLC:
+
+  * Codec-free version: http://www.slackware.com/~alien/slackbuilds/vlc/
+  * With codecs version: http://slackware.org.uk/people/alien/restricted_slackbuilds/vlc/
+
+====== Sources ======
+<!-- If you copy information from another source, then specify that source -->
+  * VLC official website: http://www.videolan.org/
+  * Building VLC from source : http://wiki.videolan.org/Slackware 
+
+<!-- * Original source: [[http://some.website.org/some/page.html]] -->
+<!-- Authors are allowed to give credit to themselves! -->
+<!-- * Originally written by [[wiki:user:xxx | User X]] -->
+<!-- * Contrbutions by [[wiki:user:yyy | User Y]] -->
+
+<!-- Please do not modify anything below, except adding new tags.-->
+<!-- You must also remove the tag-word "template" below. Otherwise your page will not show up in the Table of Contents -->
+{{tag>slackware}}
