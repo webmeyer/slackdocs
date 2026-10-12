@@ -1,0 +1,95 @@
+<!-- Add your text below. Start with a Headline (see button bar above). -->
+
+======Snownews======
+
+=====Downloading and Reading RSS feeds=====
+
+[[https://kiza.eu/software/snownews/snowscripts/|Snownews]] is a lightweight [[http://en.wikipedia.org/wiki/RSS|RSS]] newsreader for console lovers. It lets you aggregate news from a variety of sources in one place in a very easy and quick way. Additionally, it comes with Slackware so there is a big chance that it is already installed on your system.
+
+===== Starting Snownews =====
+
+To start Snownews, simply type ''snownews'' in the console.
+
+===== Adding New Feeds =====
+
+To ''add'' new feeds, press <key>'a'</key>, paste a feed URL and hit <key>'Enter'</key>. The following, for example, is Slackware Documentation Project RSS feed URL:  
+
+<code>http://docs.slackware.com/feed.php</code>
+
+You will see the name of the new feeds source. Pressing <key>'Enter'</key> will display new feeds. To go back to the main screen, press <key>'q'</key>
+
+Nowadays most websites provide RSS feeds. If there is a website that doesn't, you could try to employ scripts like [[http://script4rss.sourceforge.net/|script4rss]] to convert static HTML pages to feeds.
+
+===== Other Commands =====
+
+To display a list of other commands available, press <key>'h'</key> which is context dependent:
+
+====Feed Sources List View====
+
+{{:slackware:snownews_sources_view.png?nolink |Snownews}}
+
+
+====Feed List View====
+
+{{:slackware:snownews_feeds_view.png?nolink | Snownews}}
+
+====Feed View====
+
+{{:slackware:snownews_feed_example.png?nolink | Snownews}}
+
+=====Snownews Colours======
+
+Your Snownews window does not need to look as gloomy as the one in the pictures above. The background colour is the colour of your terminal and the rest can be configured in the ''~/.snownews/colors'' file. The file contains 4 variables. By default, it is configured as follows:
+
+<code>enabled:1</code>
+
+It just switches on colour support. Assigning ''-1'' to it would switch off colour support.
+
+<code>new item:5</code>
+
+Display new feeds in magenta.
+
+<code>goto url:4</code>
+
+URLs are displayed in blue
+
+<code>feedtitle:-1</code>
+
+The feed title has no colour.
+
+The ''~/.snownews/colors'' file contains other color definitions.
+
+=====Snownews Keybindings=====
+
+The ''~/.snownews/keybindings'' file contains the program's keybindings. The file syntax is very straightforward:
+
+<code>add feed:a</code>
+
+To add a new feed, you need to press <key>'a'</key>. If you want to change it, simply replace ''a'' with a key of your choice.
+
+=====Open Links from Feeds in a Web Browser======
+
+Newsfeeds usually include URLs that can be opened in a web browser. To open a URL, type <key>'o'</key> (lower-case letter ''o''). By default, ''snownews'', being a command line application, opens URLs in another command line tool, ie. Lynx. To change the default browser, type <key>'B'</key> from the main ''snownews'' window and type:
+
+<code>/usr/bin/firefox %s</code>
+
+From now on, all URLs will open in Firefox.
+
+=====Easter Egg=====
+
+Snownews has a Christmas related Easter Egg. Simply create the ''santa_hunta'' file inside ''~/.snownews/'', open the ''About'' window by pressing <key>'A'</key> from the main screen and enjoy the game.
+
+===== Links =====
+
+  * [[slackware:common_software#rss_readers|List]] of other popular RSS newsreaders.
+
+====== Sources ======
+<!-- If you copy information from another source, then specify that source -->
+<!-- * Original source: [[http://some.website.org/some/page.html]] -->
+<!-- Authors are allowed to give credit to themselves! -->
+  * Originally written by [[wiki:user:sycamorex | sycamorex]]
+<!-- * Contrbutions by [[wiki:user:yyy | User Y]] -->
+
+<!-- Please do not modify anything below, except adding new tags.-->
+<!-- You must also remove the tag-word "template" below. Otherwise your page will not show up in the Table of Contents -->
+{{tag>howtos software RSS newsreader snownews feeds author_sycamorex}}

@@ -1,0 +1,96 @@
+<!-- Add your text below. Start with a Headline (see button bar above). -->
+
+====== Snownews ======
+
+===== Скачивание и чтение RSS-лент =====
+
+[[kiza.eu|Snownews]] — это легковесная программа для чтения новостей [[wikipedia.org|RSS]], созданная для любителей консоли. Она позволяет очень просто и быстро собирать новости из самых разных источников в одном месте. Кроме того, она поставляется вместе со Slackware, так что велика вероятность, что она уже установлена в вашей системе.
+
+===== Запуск Snownews =====
+
+Чтобы запустить Snownews, просто введите ''snownews'' в консоли.
+
+===== Добавление новых лент =====
+
+Чтобы ''добавить'' новые ленты, нажмите <key>'a'</key>, вставьте URL-адрес ленты и нажмите <key>'Enter'</key>. Ниже, например, приведен URL-адрес RSS-ленты Проекта документации Slackware:
+
+<code>https://docs.slackware.com/feed.php</code>
+
+Вы увидите название нового источника лент. Нажатие <key>'Enter'</key> отобразит новые ленты. Чтобы вернуться на главный экран, нажмите <key>'q'</key>
+
+В наше время большинство веб-сайтов предоставляют RSS-ленты. Если же какой-то сайт их не имеет, вы можете попробовать использовать скрипты вроде [[https://script4rss.sourceforge.net/|script4rss]] для преобразования статических HTML-страниц в ленты новостей.
+
+===== Другие команды =====
+
+Чтобы отобразить список других доступных команд, нажмите <key>'h'</key> которая зависит от контекста:
+
+==== Просмотр списка источников лент ====
+
+{{:slackware:snownews_sources_view.png?nolink |Snownews}}
+
+
+==== Просмотр списка лент ====
+
+{{:slackware:snownews_feeds_view.png?nolink | Snownews}}
+
+==== Просмотр ленты ====
+
+{{:slackware:snownews_feed_example.png?nolink | Snownews}}
+
+===== Цвета Snownews =====
+
+Ваше окно Snownews вовсе не обязательно должно выглядеть так же мрачно, как на картинках выше. Цвет фона соответствует цвету вашего терминала, а всё остальное можно настроить в файле ''~/.snownews/colors''. Этот файл содержит 4 переменные. По умолчанию он настроен следующим образом:
+
+<code>enabled:1</code>
+
+Оно просто включает поддержку цветов. Присвоение ему значения ''-1'' отключит поддержку цветов.
+
+<code>new item:5</code>
+
+Отображать новые ленты пурпурным (magenta) цветом.
+
+<code>goto url:4</code>
+
+URL-адреса отображаются синим цветом
+
+<code>feedtitle:-1</code>
+
+Название ленты не имеет цвета.
+
+Файл ''~/.snownews/colors'' содержит и другие определения цветов.
+
+===== Горячие клавиши Snownews =====
+
+Файл ''~/.snownews/keybindings'' содержит настройки горячих клавиш программы. Синтаксис этого файла очень прост:
+
+<code>add feed:a</code>
+
+Чтобы добавить новую ленту, вам нужно нажать <key>'a'</key>. Если вы хотите изменить это значение, просто замените ''a'' на любую клавишу по вашему выбору.
+
+=====Open Links from Feeds in a Web Browser======
+
+Ленты новостей обычно включают в себя URL-адреса, которые можно открыть в веб-браузере. Чтобы открыть URL-адрес, введите <key>'o'</key> (строчную букву ''o''). По умолчанию ''snownews'', будучи консольным приложением, открывает URL-адреса в другом консольном инструменте, а именно в Lynx. Чтобы изменить браузер по умолчанию, нажмите <key>'B'</key> в главном окне ''snownews'' и введите:
+
+<code>/usr/bin/firefox %s</code>
+
+С этого момента все URL-адреса будут открываться в Firefox.
+
+===== Пасхалка =====
+
+В Snownews есть рождественская пасхалка. Просто создайте файл ''santa_hunta'' внутри каталога ''~/.snownews/'', откройте окно ''О программе'' (About), нажав <key>'A'</key> на главном экране, и наслаждайтесь игрой.
+
+===== Ссылки =====
+
+  * [[slackware:common_software#rss_readers|List]] других популярных программ для чтения новостей RSS.
+
+====== Источники ======
+<!-- If you copy information from another source, then specify that source -->
+<!-- * Original source: [[http://some.website.org/some/page.html]] -->
+<!-- Authors are allowed to give credit to themselves! -->
+  * Автор оригинальной статьи [[wiki:user:sycamorex | sycamorex]]
+  * Перевод [[wiki:user:webmeyer | webmeyer]]
+<!-- * Contrbutions by [[wiki:user:yyy | User Y]] -->
+
+<!-- Please do not modify anything below, except adding new tags.-->
+<!-- You must also remove the tag-word "template" below. Otherwise your page will not show up in the Table of Contents -->
+{{tag>howtos software RSS newsreader snownews feeds author_sycamorex translator_webmeyer}}
