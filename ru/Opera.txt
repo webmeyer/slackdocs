@@ -1,0 +1,23 @@
+<!-- Add your text below. Start with a Headline (see button bar above). -->
+
+====== Opera ======
+
+Веб-браузер от компании Opera Software — это многофункциональное приложение: веб-браузер, почтовый клиент, RSS-ридер, torrent-клиент... Его можно легко установить с помощью [[slackware:slackbuild_scripts|сценариев slackbuild]]. Это проприетарное программное обеспечение.
+
+Скачать SlackBuild (для 15.0): [[https://slackbuilds.org/repository/15.0/network/opera/]]
+
+В качестве альтернативы вы можете получить официальный релиз, совместимый со Slackware, со страницы [[https://www.opera.com/download|загрузки]] Opera. Он поставляется со скриптом для установки Opera в выбранное вами место (выбор по умолчанию /usr/local хорош — если вы попытаетесь выполнить установку от имени пользователя, отличного от root, программа порекомендует установить её в $HOME/.local), а также со скриптом удаления. Однако Opera не включает в себя механизм обновлений — вам придется скачивать и устанавливать новые версии вручную.
+
+====== Источники ======
+  * [[https://www.opera.com/|Official website]]
+  * Перевод и актуализация [[wiki:user:webmeyer | Dmitri Meyer]]
+
+<!-- If you copy information from another source, then specify that source -->
+<!-- * Original source: [[http://some.website.org/some/page.html]] -->
+<!-- Authors are allowed to give credit to themselves! -->
+<!-- * Originally written by [[wiki:user:xxx | User X]] -->
+<!-- * Contrbutions by [[wiki:user:yyy | User Y]] -->
+
+<!-- Please do not modify anything below, except adding new tags.-->
+<!-- You must also remove the tag-word "template" below. Otherwise your page will not show up in the Table of Contents -->
+{{tag>slackware translator_webmeyer}}

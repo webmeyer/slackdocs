@@ -1,0 +1,25 @@
+<!-- Add your text below. Start with a Headline (see button bar above). -->
+====== Opera ======
+
+The web-browser from Opera Software is a highly featured application: web-browser, email-client,RSS reader, torrent-client...  It can easily be installed from [[slackware:slackbuild_scripts|slackbuilds]]. It is proprietary software.
+
+Slackbuild adress: [[http://slackbuilds.org/repository/13.37/network/opera/]]
+
+If you want to very latest version, you can visit [[http://my.opera.com/ruario/blog/2012/08/13/opera-12-01-for-slackware|ruari's blog]]. 
+
+Alternatively, you can get a Slackware-compatible official release from Opera's [[http://www.opera.com/browser/download/|download]] page. It comes with a script to install opera to a location of choosing (the default choice of /usr/local is good - if you try to install as a user other than root, it will recommend installing to $HOME/.local) as well as an uninstall script. However, opera includes no update mechanism - you will have to download and install new versions by hand.
+
+Finally, one can use the script [[http://my.opera.com/ruario/blog/2010/12/26/automatic-conversion-of-opera-generic-linux-packages-into-slackware-format|op2slk]] to download the latest Opera version and convert it to a Slackware package for later (un)installation.
+
+====== Sources ======
+  * [[http://www.opera.com|Official website]]
+
+<!-- If you copy information from another source, then specify that source -->
+<!-- * Original source: [[http://some.website.org/some/page.html]] -->
+<!-- Authors are allowed to give credit to themselves! -->
+<!-- * Originally written by [[wiki:user:xxx | User X]] -->
+<!-- * Contrbutions by [[wiki:user:yyy | User Y]] -->
+
+<!-- Please do not modify anything below, except adding new tags.-->
+<!-- You must also remove the tag-word "template" below. Otherwise your page will not show up in the Table of Contents -->
+{{tag>slackware}}
