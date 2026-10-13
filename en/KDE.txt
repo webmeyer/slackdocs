@@ -1,0 +1,54 @@
+====== KDE ======
+
+KDE Software Compilation (KDE SC) is a [[slackware:desktop environment|desktop environment]] that provides the user a full graphical experience and includes a large number of applications, ranging from browser to photo-editing software.
+It is based on the Qt toolkit.
+
+===== Introduction =====
+
+===== Installation =====
+
+=== New Installation ===
+KDE is included in the installation DVD and is the default environment if you perform a full installation. 
+
+During the [[slackware:install|installation]] process, please make sure that you select the KDE (and KDEI for international language support if needed) package series.
+
+=== Adding KDE to an existing install ===
+If KDE was not selected during the installation process, it can be installed later using the ''slackpkg'' program as follows:
+
+  darkstar~# slackpkg install kde
+
+All packages under the kde branch will be selected for installation. You can deselect individual packages that you want to skip during installation, before you press <key>ENTER</key> to start the actual installation.
+==== Custom packages ====
+
+If you wish to use a more recent version of KDE than either the stable or current branch, you can use some more up-to-date packages. AlienBob's [[http://alien.slackbook.org/ktown/ | ktown]] provides the latest software collection and the needed steps to perform the installation. Keep in mind that those packages are not officially supported by Slackware. 
+
+===== Configuration =====
+
+==== Visual Unification ====
+Non KDE applications will revert to generic GTK look and feel and will not have the same visual styling as KDE packages.\\
+As a work-around there are a few packages that are available to help make a unification of look and feel between KDE and non-KDE applications.\\
+=== kde44-oxygen-molecule ===
+Can be downloaded from [[http://slackbuilds.org/repository/13.37/desktop/kde44-oxygen-molecule/|SBo]]. After installing, go to System Settings -> Application Appearance -> Colors and select Oxygen-Molecule_3.\\
+To make non-KDE applications read this setting, create a new file called .gtkrc-2.0 in your home directory and populate it with:
+
+  include "/usr/local/share/themes/kde44-oxygen-molecule/gtk-2.0/gtkrc"
+  style "user-font"
+  {
+  }
+  widget_class "*" style "user-font"
+  gtk-theme-name="kde44-oxygen-molecule"
+  gtk-font-name="fontname fontsize"   //  (for example: "Sans 10")
+  
+Sometimes the same file needs to be named ".gtkrc-2.0-kde4" so it is a good practice to have both files:
+  
+  darkstar~# ln -s .gtkrc-2.0 .gtkrc-2.0-kde4
+  
+==== Keyboard setup ====
+Should you wish to configure your keyboard setup, please look at the [[howtos:window_managers:keyboard_layout_in_kde|kde keyboard layout]] page.
+===== Troubleshooting =====
+
+
+===== External links =====
+
+  * [[http://www.microlinux.fr/articles/kde4.pdf | What about switching to KDE4 ? (in French)]] \\ Introducing KDE4 for newbies and explaining all the quirks you need to grasp to be able to use it for production. The article is based on a stock Slackware 13.37 system, so everything actually just works as is. This is a six-page article by Kiki Novak, written in french and published in the french print magazine //Planète Linux// (66th issue, September-October 2011). **Important note of the author**: I own the rights for this article, so I decided to link to it here. Feel free to cannibalize it as you wish: take bits from it, include it partly or as a whole in the wiki, translate it, etc. To make the task easier for you, here's a [[http://www.microlinux.fr/articles/kde4.zip | link ]] to a compressed archive in ZIP format containing all the individual files used in the production of the article, like the original text in ODT format, and a dozen screenshots in PNG format. Enjoy ;o)
+
